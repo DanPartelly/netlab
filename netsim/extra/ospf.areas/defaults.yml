@@ -1,0 +1,56 @@
+# bgp.session default settings -- mostly attributes
+#
+---
+devices:
+  csr.features.ospf.areas:
+    stub: True
+    nssa: True
+    range: True
+    filter: True
+    default: True
+  cumulus.features.ospf.areas:
+    stub: True
+    nssa: True
+    range: True
+    filter: True
+    default: True
+  eos.features.ospf.areas:
+    stub: True
+    nssa: True
+    range: True
+    filter: True
+    default: True
+  frr.features.ospf.areas:
+    stub: True
+    nssa: True
+    range: True
+    filter: True
+    default: True
+  iosv.features.ospf.areas:
+    stub: True
+    nssa: True
+    range: True
+    filter: True
+    default: True
+
+ospf:
+  attributes:
+    global:
+      areas:
+        type: dict
+        _keytype: { type: ipv4, use: id }
+        _subtype:
+          stub: bool
+          nssa: bool
+          default:
+            originate: bool
+            cost: int
+          filter:
+            type: list
+            _subtype: { type: ipv4, use: prefix }
+          range:
+            type: list
+            _subtype: { type: ipv4, use: prefix }
+    node:
+      areas:
+        copy: global
